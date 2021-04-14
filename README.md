@@ -7,3 +7,6 @@ Packages used
 
 Requirements
 - [Open Weather Map Account](https://openweathermap.org/)
+
+Assumptions
+- 'Today' counts as one of the forecast days
