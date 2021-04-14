@@ -15,22 +15,17 @@ class WeatherController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a basic index page
      *
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        $city = $request->has('city') ? $request->get('city') : null;
-
-        // Just testing that everything is plugged in
-        $forecast = $city ? $this->weatherRepository->forecastByCityKey($city) : null;
-
-        return view('forecast')->with(compact(['city', 'forecast']));
+        return view('forecast');
     }
 
     /**
-     * Display a listing of the resource.
+     * Display the city and it's forecast
      *
      * @return \Illuminate\Http\Response
      */
