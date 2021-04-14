@@ -22,13 +22,6 @@ class GenerateForecastReport extends Command
     protected $description = 'Generate a forecast report for a comma separated list of cities.';
 
     /**
-     * The amount of days to forecast.
-     *
-     * @var int
-     */
-    private $days = 5;
-
-    /**
      * @var WeatherRepository
      */
     private $weatherRepository;
@@ -56,19 +49,40 @@ class GenerateForecastReport extends Command
 
         // Validate cities against soon-to-be repo
         foreach ($cities as $city) {
+            $city = trim($city);
 
             try {
-                $results = $this->weatherRepository->forecastByCityName($city, $this->days);
+                $results = $this->weatherRepository->forecastByCityName($city);
+//                dd($results);
             } catch (\Exception $e) {
-                $this->info("The city '$city' is not resolvable.'");
-                return 0;
+                $this->warn($e->getMessage());
+                $this->newLine();
+                continue;
             }
 
-            $this->info("{$this->days} day forecast for $city:");
+            $this->info("Forecast for $city:");
+
+            $headers = [
+                'Day',
+                'Conditions',
+                'Max Temp',
+                'Min Temp',
+            ];
+
+            $rows = [];
 
             foreach ($results as $key => $result) {
-                $this->info($key);
+                $rows[] = [
+                    $result['datetime']['formatted_day'] . ' (' . $result['datetime']['formatted_date'].')',
+                    $result['condition']['name'] . ": " . $result['condition']['desc'],
+                    $result['forecast']['temp_max'] . '˚C',
+                    $result['forecast']['temp_min'] . '˚C',
+                ];
             }
+
+            $this->table($headers, $rows);
+
+            $this->newLine();
         }
 
         return 0;
