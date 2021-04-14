@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Dnsimmons\OpenWeather\OpenWeatherServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -183,7 +184,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This array of class aliases will be registered when this application
-    | is started. However, feel free to register as many as you wish as
+    | is started. However, feel free to register as many as you wish asconfig/openweather.php
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
@@ -213,6 +214,7 @@ return [
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
+        'OpenWeather' => Dnsimmons\OpenWeather\OpenWeather::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
@@ -227,7 +229,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
 
 ];
