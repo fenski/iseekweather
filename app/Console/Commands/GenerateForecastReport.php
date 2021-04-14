@@ -56,8 +56,16 @@ class GenerateForecastReport extends Command
 
         // Validate cities against soon-to-be repo
         foreach ($cities as $city) {
-            $this->info($city);
-            $results = $this->weatherRepository->forecastByCityKey($city, $this->days);
+
+            try {
+                $results = $this->weatherRepository->forecastByCityName($city, $this->days);
+            } catch (\Exception $e) {
+                $this->info("The city '$city' is not resolvable.'");
+                return 0;
+            }
+
+            $this->info("{$this->days} day forecast for $city:");
+
             foreach ($results as $key => $result) {
                 $this->info($key);
             }

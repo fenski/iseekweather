@@ -5,5 +5,9 @@
 
     interface WeatherRepositoryInterface
     {
-        public function forecastByCityKey(string $cityKey, int $days): Collection;
+        public function forecastByCityKey(string $cityKey): Collection;
+
+        public function forecastByCityName(string $cityKey): Collection;
+
+        public function forecastByCoordinates(string $latitude, string $longitude): Collection;
     }

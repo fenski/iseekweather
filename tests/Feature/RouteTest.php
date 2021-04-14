@@ -26,8 +26,20 @@ class RouteTest extends TestCase
      */
     public function testCityTest()
     {
-        $response = $this->get('/adelaide-sa');
+        $response = $this->get('/adelaide');
 
         $response->assertStatus(200);
+    }
+
+    /**
+     * Ensure passing an unknown city returns a 404 page
+     *
+     * @return void
+     */
+    public function testIncorrectCityTest()
+    {
+        $response = $this->get('/radelaide');
+
+        $response->assertStatus(404);
     }
 }

@@ -16,10 +16,10 @@ class WeatherRepositoryTest extends TestCase
      */
     public function testRepositoryLoads()
     {
-        $repository = new WeatherRepository();
+        $repository = app(WeatherRepository::class);
 
         $this->assertEquals(get_class($repository), WeatherRepository::class);
-        $this->assertEquals(get_class($repository->forecastByCityKey('adelaide-sa')), Collection::class);
+        $this->assertEquals(get_class($repository->forecastByCityKey('adelaide')), Collection::class);
     }
 
     /**
@@ -29,7 +29,7 @@ class WeatherRepositoryTest extends TestCase
      */
     public function testCityTest()
     {
-        $response = $this->get('/?city=Adelaide');
+        $response = $this->get('/adelaide');
 
         $response->assertStatus(200);
     }

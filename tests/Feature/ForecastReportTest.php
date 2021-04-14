@@ -17,15 +17,15 @@ class ForecastReportTest extends TestCase
     public function testConsoleCommand()
     {
         // 1 correct city
-        $this->artisan('report:forecast "adelaide"')
+        $this->artisan('report:forecast "Adelaide"')
             ->assertExitCode(0);
 
         // 2 correct cities
-        $this->artisan('report:forecast "adelaide,melbourne"')
+        $this->artisan('report:forecast "Adelaide,Melbourne"')
             ->assertExitCode(0);
 
         // 2 cities, 1 incorrect
-        $this->artisan('report:forecast "adelaide,bisbane"')
+        $this->artisan('report:forecast "Adelaide,Bisbane"')
             ->assertExitCode(0);
     }
 }

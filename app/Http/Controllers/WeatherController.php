@@ -34,7 +34,11 @@ class WeatherController extends Controller
         $city = $cityKey;
 
         // Just testing that everything is plugged in
-        $forecast = $city ? $this->weatherRepository->forecastByCityKey($city) : null;
+        try {
+            $forecast = $city ? $this->weatherRepository->forecastByCityKey($city) : null;
+        } catch (\Exception $e) {
+            abort(404);
+        }
 
         return view('forecast')->with(compact(['city', 'forecast']));
     }
