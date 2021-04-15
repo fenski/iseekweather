@@ -24,6 +24,11 @@
                     'key' => 'canberra',
                     'coordinates' => [-35.280937, 149.130005]
                 ],
+                [
+                    'name' => 'Darwin',
+                    'key' => 'darwin',
+                    'coordinates' => [-12.462320, 130.840942]
+                ],
             ];
         }
 

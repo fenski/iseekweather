@@ -53,7 +53,6 @@ class GenerateForecastReport extends Command
 
             try {
                 $results = $this->weatherRepository->forecastByCityName($city);
-//                dd($results);
             } catch (\Exception $e) {
                 $this->warn($e->getMessage());
                 $this->newLine();

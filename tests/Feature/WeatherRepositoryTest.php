@@ -21,16 +21,4 @@ class WeatherRepositoryTest extends TestCase
         $this->assertEquals(get_class($repository), WeatherRepository::class);
         $this->assertEquals(get_class($repository->forecastByCityKey('adelaide')), Collection::class);
     }
-
-    /**
-     * Ensure passing a known city returns a 200 page
-     *
-     * @return void
-     */
-    public function testCityTest()
-    {
-        $response = $this->get('/adelaide');
-
-        $response->assertStatus(200);
-    }
 }

@@ -46,6 +46,13 @@ class WeatherController extends Controller
         return view('forecast')->with(compact(['city', 'forecast']));
     }
 
+    /**
+     * Faux API for returning forecast data
+     * @param Request $request
+     * Required query param
+     * string cityName
+     * @return \Illuminate\Http\JsonResponse|string|null
+     */
     public function apiGet(Request $request)
     {
         $cityName = $request->has('cityName') ? $request->get('cityName') : null;
@@ -62,5 +69,14 @@ class WeatherController extends Controller
         }
 
         return response()->json($forecast);
+    }
+
+    /**
+     * Faux API for returning cities
+     * @return \Illuminate\Http\JsonResponse|string|null
+     */
+    public function apiCities()
+    {
+        return response()->json($this->cityRepository->data());
     }
 }

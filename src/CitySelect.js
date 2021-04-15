@@ -6,20 +6,37 @@ class CitySelect extends React.Component {
         super(props);
         this.state = {
             city: '',
+            cities: [],
             days: [],
             isLoaded: true,
         };
 
-        // Ugly admission
-        // Idea if time to pull these in from the repository
-        this.cities = ['Adelaide', 'Brisbane', 'Canberra'];
+        // Populate cities list
+        // In future add a visual loading state
+        fetch("/api/cities/get")
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    console.log(result);
+                    this.setState({
+                        cities: result
+                    });
+                },
+                // Error
+                (error) => {
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    });
+                    // Gross, yes - should be on-screen representation
+                    alert('Cities failed to load');
+                }
+            );
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
-        // alert(event.target.value);
         this.setState( {
             city: event.target.value,
             days: [],
@@ -27,7 +44,7 @@ class CitySelect extends React.Component {
         });
 
         // Request data from API
-        fetch("/api/forecast/get?cityName="+this.state.city)
+        fetch("/api/forecast/get?cityName="+event.target.value)
             .then(res => res.json())
             .then(
                 (result) => {
@@ -37,9 +54,7 @@ class CitySelect extends React.Component {
                         days: result
                     });
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
+                // Catch errors
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -48,30 +63,26 @@ class CitySelect extends React.Component {
                 }
             )
 
-        // Update view
-    }
-
-    handleSubmit(event) {
-        alert('Your city is: ' + this.state.city);
-        event.preventDefault();
     }
 
     render() {
-        const cityList = this.cities.map((city) =>
-            <option key={city} value={city}>{city}</option>
+        const cityList = this.state.cities.map((city) =>
+            <option key={city.name} value={city.name}>{city.name}</option>
         );
 
         return (
-            <div className="min-h-screen flex items-center px-4">
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Pick a city:
-                        <select value={this.state.city} onChange={this.handleChange}>
-                            <option key=''></option>
-                            {cityList}
-                        </select>
-                    </label>
-                </form>
+            <div className="pt-4 mx-auto">
+                <div className="p-2">
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            <strong>Pick a city:</strong>
+                            <select value={this.state.city} onChange={this.handleChange} className="ml-2 border-black">
+                                <option key=''>Select a city</option>
+                                {cityList}
+                            </select>
+                        </label>
+                    </form>
+                </div>
 
                 <div>
                     <DayList days={this.state.days} />
