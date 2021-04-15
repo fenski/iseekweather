@@ -8,6 +8,12 @@
     {
         // This would be replaced at scale with a data model reference or external storage
         public function data() {
+            /**
+             * name => Human readable name. What is likely to be typed in and displayed.
+             * key => Slug that can be used for maintaining unique references,
+             *        and if we want to go the route of URL friendly pages. Must follow slug conventions.
+             * coordinates => latitude and longitude of the city center
+             */
             return [
                 [
                     'name' => 'Adelaide',
