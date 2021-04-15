@@ -1,14 +1,17 @@
 @extends('master')
 
 @section('title')
-@endsection
-
-@section('body')
     @if($city ?? false)
         {{ $city }}
     @else
         No city is selected
     @endif
+@endsection
 
-    {{--{{ dd($forecast) }}--}}
+@section('body')
+    <div id="root"></div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/weather.js') }}"></script>
 @endsection
