@@ -10,15 +10,19 @@
         private $service;
         private $cityRepository;
 
-        // Can create modifiers to this repo to change these default values
-        private $units = 'metric';
-        private $daysDefault = 5;
-        private $includeToday = false;
+        // Can create modifiers to this repo to change these default values for specific calls vs. global config change
+        private $units;
+        private $daysDefault;
+        private $includeToday;
 
         public function __construct(CityRepository $cityRepository)
         {
             $this->service = new OpenWeather();
             $this->cityRepository = $cityRepository;
+
+            $this->daysDefault = config('weather.default-days');
+            $this->includeToday = config('weather.include-today');
+            $this->units = config('weather.units');
         }
 
         /**
